@@ -1,0 +1,72 @@
+package tests;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
+import structure.Dashboard;
+import structure.Driver;
+import structure.Login;
+import structure.OutlookPage;
+
+public class BasicTests {
+
+    private WebDriver driver = new Driver().getChromeDriver();
+    private static final String userName = "Test010";
+    private Login login;
+    private Dashboard dashboard;
+    private Assertion asserts = new Assertion();
+    private OutlookPage outlookPage = new OutlookPage(driver);
+
+
+    @BeforeClass
+    public void setUp(){
+        login = new Login(driver);
+        dashboard = new Dashboard(driver);
+        login.login();
+    }
+
+    @BeforeTest
+    public void openHomepage(){
+        driver.get(System.getProperty("url"));
+    }
+
+    /*@Test(priority = 1)
+    public void verifyEntityExist(){
+        dashboard.searchFor(userName);
+        asserts.assertTrue (dashboard.getSearchResult(0)[0].contains(userName),
+                "Verify that user name has updated version");
+    }
+
+    @Test(priority = 2)
+    public void exportEntity(){
+        dashboard.searchFor(userName);
+        dashboard.makeAction(0, "Export");
+        dashboard.exportEntity();
+        asserts.assertEquals(dashboard.waitAndGetExportStatus(), "Completed",
+        "Verify ability to export an entity");
+    }*/
+
+    @Test(priority = 3)
+    public void downloadExportedEntity(){
+        asserts.assertTrue(dashboard.getExportedEntity().contains("FN:"+userName),
+                "Verify that exported file contains correct user name");
+
+
+    }
+
+    /*@Test
+    public void test123(){
+        outlookPage.loginToOutlook();
+        outlookPage.editContact("Test010 User01");
+
+    }*/
+
+    @AfterClass
+    public void quit(){
+        driver.quit();
+    }
+
+}
