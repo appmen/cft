@@ -1,5 +1,6 @@
 package tests;
 
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -13,12 +14,11 @@ import structure.OutlookPage;
 
 public class BasicTests {
 
-    private WebDriver driver = new Driver().getChromeDriver();
-    private static final String userName = "Test010";
+    private WebDriver driver = new Driver().getFFdriver();
+    private static final String userName = "Test";
     private Login login;
     private Dashboard dashboard;
     private Assertion asserts = new Assertion();
-    private OutlookPage outlookPage = new OutlookPage(driver);
 
 
     @BeforeClass
@@ -49,20 +49,17 @@ public class BasicTests {
         "Verify ability to export an entity");
     }*/
 
-    @Test(priority = 3)
+    /*@Test(priority = 3)
     public void downloadExportedEntity(){
         asserts.assertTrue(dashboard.getExportedEntity().contains("FN:"+userName),
                 "Verify that exported file contains correct user name");
-
-
-    }
-
-    /*@Test
-    public void test123(){
-        outlookPage.loginToOutlook();
-        outlookPage.editContact("Test010 User01");
-
     }*/
+    
+    @Test(priority = 4)
+    public void verifyExportDate() {
+    	asserts.assertTrue(dashboard.isFirsRecordExportedToday(), 
+    			"Verify that first record was exported today");
+    }
 
     @AfterClass
     public void quit(){
