@@ -4,6 +4,7 @@ package tests;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
@@ -28,12 +29,13 @@ public class BasicTests {
         login.login();
     }
 
-    @BeforeTest
+    @BeforeMethod
     public void openHomepage(){
         driver.get(System.getProperty("url"));
+        System.out.println("before");
     }
 
-    /*@Test(priority = 1)
+    @Test(priority = 1)
     public void verifyEntityExist(){
         dashboard.searchFor(userName);
         asserts.assertTrue (dashboard.getSearchResult(0)[0].contains(userName),
@@ -53,7 +55,7 @@ public class BasicTests {
     public void downloadExportedEntity(){
         asserts.assertTrue(dashboard.getExportedEntity().contains("FN:"+userName),
                 "Verify that exported file contains correct user name");
-    }*/
+    }
     
     @Test(priority = 4)
     public void verifyExportDate() {
