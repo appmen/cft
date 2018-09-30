@@ -33,7 +33,7 @@ public class BasicTests {
         driver.get(System.getProperty("url"));
     }
 
-    @Test(priority = 1)
+    /*@Test(priority = 1)
     public void verifyEntityExist(){
         dashboard.searchFor(userName);
         asserts.assertTrue (dashboard.getSearchResult(0)[0].contains(userName),
@@ -53,7 +53,7 @@ public class BasicTests {
     public void downloadExportedEntity(){
         asserts.assertTrue(dashboard.getExportedEntity().contains("FN:"+userName),
                 "Verify that exported file contains correct user name");
-    }
+    }*/
     
     @Test(priority = 4)
     public void verifyExportDate() {

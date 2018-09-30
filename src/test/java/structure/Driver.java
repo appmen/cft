@@ -41,7 +41,7 @@ public class Driver {
         options.setCapability("browser.download.dir", System.getProperty("user.home")+"//Downloads");
         options.setCapability("browser.helperApps.neverAsk.saveToDisk","application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip");
         */
-        System.setProperty("webdriver.gecko.driver", System.getenv("USERPROFILE")+"\\Downloads\\GeckoDriver.exe");
+        System.setProperty("webdriver.gecko.driver", System.getenv("USERPROFILE")+"\\Downloads\\geckodriver.exe");
         FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("browser.helperApps.neverAsk.saveToDisk","application/pdf,text/csv,application/scv,application/msexcel,application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
         profile.setPreference("browser.download.folderList", "2");

@@ -52,7 +52,7 @@ public class Dashboard {
     @FindBy (xpath = "//i[@class='fa fa-download fa-pointer fa-hover-primary']")
     private WebElement downloadLinkAtDashboard;
     
-    @FindBy(xpath = "//table[@class='table table-striped table-condensed']/tbody/tr[1]/td[2]")
+    @FindBy(xpath = "(//table[@class='table table-striped table-condensed']/tbody/tr[1]/td[2])[2]")
     private WebElement endExportDate;
 
     private void wait(int seconds){
@@ -237,9 +237,8 @@ public class Dashboard {
         
     	SimpleDateFormat format = new SimpleDateFormat("M/dd/yy"); 
     	String today= format.format( new Date());
-    	System.out.println(today);
-    	System.out.println(endExportDate.getText());
-    	return endExportDate.getText().split("")[0].equals(today);
+    	
+    	return endExportDate.getText().trim().split(" ")[0].equals(today);
     	
     }
 
