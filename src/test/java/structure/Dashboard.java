@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class Dashboard {
@@ -43,12 +45,15 @@ public class Dashboard {
 
     @FindBy (xpath = "//table[@class='table table-condensed']/tbody/tr[@class='ng-scope']/td[4]/p/span")
     private WebElement firstRecordStatus;
-
+    
     @FindBy (xpath = "//table[@class='table table-condensed']/tbody/tr[@class='ng-scope']/td[5]/p/span/i")
     private WebElement downloadLink;
 
     @FindBy (xpath = "//i[@class='fa fa-download fa-pointer fa-hover-primary']")
     private WebElement downloadLinkAtDashboard;
+    
+    @FindBy(xpath = "//table[@class='table table-striped table-condensed']/tbody/tr[1]/td[2]")
+    private WebElement endExportDate;
 
     private void wait(int seconds){
         try {
@@ -222,6 +227,20 @@ public class Dashboard {
             }
         }
         return fileContent;
+    }
+    
+    public Boolean isFirsRecordExportedToday() {
+    	Reporter.log("Click 'Export' tab");
+        (new WebDriverWait(driver, 3)).until(ExpectedConditions.visibilityOf(exportTab));
+        (new WebDriverWait(driver, 3)).until(ExpectedConditions.elementToBeClickable(exportTab));
+        exportTab.click();
+        
+    	SimpleDateFormat format = new SimpleDateFormat("M/dd/yy"); 
+    	String today= format.format( new Date());
+    	System.out.println(today);
+    	System.out.println(endExportDate.getText());
+    	return endExportDate.getText().split("")[0].equals(today);
+    	
     }
 
     public Dashboard(WebDriver driver){
