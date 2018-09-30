@@ -10,7 +10,7 @@ import org.testng.asserts.Assertion;
 import structure.Dashboard;
 import structure.Driver;
 import structure.Login;
-import structure.OutlookPage;
+
 
 public class BasicTests {
 
@@ -33,7 +33,7 @@ public class BasicTests {
         driver.get(System.getProperty("url"));
     }
 
-    /*@Test(priority = 1)
+    @Test(priority = 1)
     public void verifyEntityExist(){
         dashboard.searchFor(userName);
         asserts.assertTrue (dashboard.getSearchResult(0)[0].contains(userName),
@@ -47,13 +47,13 @@ public class BasicTests {
         dashboard.exportEntity();
         asserts.assertEquals(dashboard.waitAndGetExportStatus(), "Completed",
         "Verify ability to export an entity");
-    }*/
+    }
 
-    /*@Test(priority = 3)
+    @Test(priority = 3)
     public void downloadExportedEntity(){
         asserts.assertTrue(dashboard.getExportedEntity().contains("FN:"+userName),
                 "Verify that exported file contains correct user name");
-    }*/
+    }
     
     @Test(priority = 4)
     public void verifyExportDate() {
