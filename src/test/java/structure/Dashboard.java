@@ -129,7 +129,12 @@ public class Dashboard {
     }
 
     public String getExportedEntity(){
-
+    	//Get url for download folder
+        String downloadFolder = System.getProperty("user.home")+"\\Downloads";
+    	//Delete prev zip files
+        String deleteZipFiles = String.format("cmd /C del /F /Q %s\\*.zip", downloadFolder);
+        runCmdCommand(deleteZipFiles);
+        
         Reporter.log("Click 'Export' tab");
         (new WebDriverWait(driver, 3)).until(ExpectedConditions.visibilityOf(exportTab));
         (new WebDriverWait(driver, 3)).until(ExpectedConditions.elementToBeClickable(exportTab));
@@ -137,22 +142,28 @@ public class Dashboard {
 
         Reporter.log("Click 'download' button");
         downloadLinkAtDashboard.click();
-
-        String downloadFolder = System.getProperty("user.home")+"\\Downloads";
-
+        
+        //Get file name for downloaded file 
         String fileName = getfileName(downloadFolder);
+        //Get full path to downloaded file
         String fullFilePath = downloadFolder + "\\" + fileName;
-        String command = String.format("powershell.exe -command \"Expand-Archive -Path %s -DestinationPath %s\"",fullFilePath, downloadFolder);
-        System.out.println();
-        runCmdCommand(String.format("DEL /Q /F %s\\*.zip", downloadFolder));
-        runCmdCommand(command);
+        //Extract zip archive
+        String extractDownloadedFile = String.format("powershell.exe -command \"Expand-Archive -Path %s -DestinationPath %s\"",fullFilePath, downloadFolder);
+        
+        runCmdCommand(extractDownloadedFile);
         wait(3);
+        
         String exportedFolder = fullFilePath.replace(".zip", "") + "\\vk@pxtx.onmicrosoft.com";
-        System.out.println("Folder "+exportedFolder);
+        
         String extractedFile = (new File(exportedFolder)).listFiles()[0].getName();
-        System.out.println("File  "+extractedFile);
-        return getFileContent(exportedFolder + "\\" + extractedFile);
-
+        
+        String fileContent = getFileContent(exportedFolder + "\\" + extractedFile);
+        
+        //Delete extracted folder
+        String deleteExtractedFolder = String.format("rmdir /C del /S /Q %s", exportedFolder);
+        runCmdCommand(deleteExtractedFolder);
+        
+        return fileContent;
     }
 
     private String getfileName(String directory){
@@ -176,8 +187,8 @@ public class Dashboard {
     private void runCmdCommand(String command){
         Runtime rt = Runtime.getRuntime();
         try {
-            System.out.println(command);
-            Process pr = rt.exec(command);
+            
+            rt.exec(command);
         } catch (IOException e) {
             e.printStackTrace();
         }
