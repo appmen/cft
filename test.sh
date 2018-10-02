@@ -1,0 +1,1 @@
+mvn clean test "-Dwebdriver.gecko.driver=driver/geckodriver"
