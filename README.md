@@ -12,4 +12,4 @@ Run tests:
    * test.cmd under Windows
    * test.sh under Linux/OSX (make sure that test.sh has executable permission, if not, do `chmod +x ./test.sh`)
    * please use corresponding webdriver: geckodriver.exe for Windows, geckodriver for Mac, and geckodriver_linux for linux (can be found at the `driver` folder)
-   * use `chmod +x driver/gechodriver` to make driver runnable
+   * use `chmod +x driver/geckodriver` to make driver runnable
